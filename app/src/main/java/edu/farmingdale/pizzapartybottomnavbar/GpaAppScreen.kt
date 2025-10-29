@@ -28,7 +28,6 @@ fun GpaAppScreen() {
     // Declare variables for GPA result and background color
     var gpa by remember { mutableStateOf("") }
     var backColor by remember { mutableStateOf(Color.Cyan) }
-    var btnLabel by remember { mutableStateOf("Compute GPA") }
 
     Column(
         modifier = Modifier
@@ -38,7 +37,7 @@ fun GpaAppScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //ToDo4
+        //ToDo 4: fix formatting.
         TextField(
             value = grade1,
             onValueChange = { grade1 = it },
@@ -96,39 +95,52 @@ fun GpaAppScreen() {
             )
         )
 
+        // Compute GPA Button
         Button(
             onClick = {
-                if (btnLabel == "Compute GPA") {
-                    val gpaVal = calGPA(grade1, grade2, grade3)
-                    if (gpaVal != null) {
-                        gpa = gpaVal.toString()
+                val gpaVal = calGPA(grade1, grade2, grade3)
+                if (gpaVal != null) {
+                    gpa = gpaVal.toString()
 
-                        // Change background color based on GPA
-                        backColor = when {
-                            gpaVal < 60 -> Color.Red
-                            gpaVal in 60.0..79.0 -> Color.Yellow
-                            else -> Color.Green
-                        }
-                        btnLabel = "Clear"
-                    } else {
-                        gpa = "Invalid input"
+                    // Change background color based on GPA
+                    backColor = when {
+                        gpaVal < 60 -> Color.Red
+                        gpaVal in 60.0..79.0 -> Color.Yellow
+                        else -> Color.Green
                     }
                 } else {
-                    // Reset all values to none
-                    grade1 = ""
-                    grade2 = ""
-                    grade3 = ""
-                    gpa = ""
-                    backColor = Color.White
-                    btnLabel = "Compute GPA"
+                    gpa = "Invalid input"
+                    backColor = Color.Cyan
                 }
             },
-            modifier = Modifier.padding(top = 24.dp),
+            modifier = Modifier
+                .padding(top = 24.dp)
+                .fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
                 containerColor = PurpleColor
             )
         ) {
-            Text(btnLabel)
+            Text("Compute GPA")
+        }
+
+        // ToDo 5: add clear button
+        Button(
+            onClick = {
+                // Clear all input fields
+                grade1 = ""
+                grade2 = ""
+                grade3 = ""
+                gpa = ""
+                backColor = Color.Cyan
+            },
+            modifier = Modifier
+                .padding(top = 12.dp)
+                .fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = PurpleColor
+            )
+        ) {
+            Text("Clear")
         }
 
         if (gpa.isNotEmpty()) {
