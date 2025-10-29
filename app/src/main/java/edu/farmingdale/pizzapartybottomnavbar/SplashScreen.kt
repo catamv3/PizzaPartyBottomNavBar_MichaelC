@@ -36,7 +36,7 @@ fun SplashScreen(navController: NavHostController) {
                 OvershootInterpolator(2f).getInterpolation(it)
             }
             ))
-        delay(3000)
+        delay(350)
         navController.navigate(BottomNavigationItems.PizzaScreen.route)
     }
 
