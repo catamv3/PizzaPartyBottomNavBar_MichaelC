@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -31,7 +32,7 @@ import kotlin.math.ceil
 
 // ToDo 7: Using the ViewModel class, create a new ViewModel class called PizzaPartyViewModel as
 // a subclass of ViewModel. Add the following properties to the PizzaPartyViewModel - see Brightspace
-
+@Preview
 @Composable
 fun PizzaPartyScreen( modifier: Modifier = Modifier) {
     var totalPizzas by remember { mutableIntStateOf(0) }
@@ -52,9 +53,10 @@ fun PizzaPartyScreen( modifier: Modifier = Modifier) {
             onValueChange = { numPeopleInput = it },
             modifier = modifier.padding(bottom = 16.dp).fillMaxWidth()
         )
+        //ToDo 6
         RadioGroup(
             labelText = "How hungry?",
-            radioOptions = listOf("Light", "Medium", "Very hungry"),
+            radioOptions = listOf("Light", "Medium","More than medium, but not very", "Very hungry"),
             selectedOption = hungerLevel,
             onSelected = { hungerLevel = it },
             modifier = modifier
@@ -133,7 +135,7 @@ fun RadioGroup(
     }
 }
 
-
+//ToDo 6
 fun calculateNumPizzas(
     numPeople: Int,
     hungerLevel: String
@@ -142,6 +144,7 @@ fun calculateNumPizzas(
     val slicesPerPerson = when (hungerLevel) {
         "Light" -> 2
         "Medium" -> 3
+        "More than medium, but not very" -> 4
         else -> 5
     }
 
