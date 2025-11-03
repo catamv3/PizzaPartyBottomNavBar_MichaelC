@@ -1,33 +1,44 @@
 package edu.farmingdale.pizzapartybottomnavbar
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.AddCircle
-import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.outlined.ShoppingCart
+import androidx.compose.material.icons.filled.Calculate
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Restaurant
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.tooling.preview.Preview
 
+
+// Sealed class for bottom navigation items with route, title, and icon
 sealed class BottomNavigationItems(
     val route: String,
-    val title: String? = null,
-    val icon: ImageVector? = null
+    val title: String?,
+    val icon: ImageVector?
 ) {
-    object Welcome : BottomNavigationItems("welcomeScreen")
+    // Welcome/Splash screen - no bottom nav here
+    object Welcome : BottomNavigationItems(
+        route = "welcome",
+        title = null,
+        icon = null
+    )
 
+    // Pizza Order Screen with pizza icon
     object PizzaScreen : BottomNavigationItems(
-        route = "pizzaScreen",
+        route = "pizza_screen",
         title = "Pizza Order",
-        icon = Icons.Outlined.ShoppingCart
+        icon = Icons.Default.Restaurant
     )
+
+    // GPA Calculator Screen with calculator icon
     object GpaAppScreen : BottomNavigationItems(
-        route = "gpaappscreen",
-        title = "Gpa App",
-        icon = Icons.Default.CheckCircle
+        route = "gpa_app_screen",
+        title = "GPA App",
+        icon = Icons.Default.Calculate
     )
+
+    // Profile/Screen3 with person icon
     object Screen3 : BottomNavigationItems(
         route = "screen3",
-        title = "Screen3",
-        icon = Icons.Outlined.AccountCircle
+        title = "Screen 3",
+        icon = Icons.Default.Person
     )
 }

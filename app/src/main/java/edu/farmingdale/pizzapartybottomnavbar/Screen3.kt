@@ -10,8 +10,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,38 +25,41 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.sync.Mutex
 
-
+@Preview
 @Composable
 fun Screen3() {
     var sliderValue by remember { mutableStateOf(0.5f) }
     var chkd by remember { mutableStateOf(true) }
-    //create gradient pattern
-    var gradient = Brush.verticalGradient(
+
+    // Create theme-aware gradient pattern
+    val gradient = Brush.verticalGradient(
         colors = listOf(
-            Color(0xFFE3E5EC),
-            Color(0xFF87CCE8),
-            Color(0xFF3F76A1)
+            MaterialTheme.colorScheme.background,
+            MaterialTheme.colorScheme.primaryContainer,
+            MaterialTheme.colorScheme.primary,
+            MaterialTheme.colorScheme.secondary
         )
     )
 
-
     val context = LocalContext.current
+    val scrollState = rememberScrollState()
+
     // ToDo 3: Make the UI look better by adding a gradient background (vertical) and padding
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(brush = gradient)
+            .verticalScroll(scrollState)
             .padding(24.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.Center,  // Center content vertically
+        horizontalAlignment = Alignment.CenterHorizontally  // Center content horizontally
     ) {
 
         //ToDo 2: the slider should be able to change the text value of the screen
@@ -68,7 +74,7 @@ fun Screen3() {
             text = "Slide me to check my value: ${String.format("%.2f", sliderValue)}!",
             fontSize = (sliderValue * 40).sp,  // font size from 0sp to 40sp
             style = TextStyle(textAlign = TextAlign.Center),
-            color = Color.White
+            color = MaterialTheme.colorScheme.onBackground  // Theme-aware text color
         )
 
         Button(onClick = {
@@ -88,5 +94,4 @@ fun Screen3() {
     }
 
 }
-
 
