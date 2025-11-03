@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-
+//ToDo 9: updating color pallete
 // ToDo 8:
 @Composable
 fun NavigationGraph(
